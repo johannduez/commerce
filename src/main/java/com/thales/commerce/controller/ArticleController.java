@@ -25,6 +25,10 @@ public class ArticleController {
 	@CrossOrigin()
 	@GetMapping("findall")
 	public List<Article> findAll() {
+		
+		
+		
+		/*test*/
 //		Article art1 = new Article("Smartphone Apple iPhone 13",
 //				"Ecran OLED Super Retina XDR de 15,5 cm Mémoire de stockage : 512 Go", 799, "assets/img/tel1.png",
 //				"Téléphone");
