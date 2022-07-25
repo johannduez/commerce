@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.thales.commerce.model.Client;
 import com.thales.commerce.model.Commande;
 import com.thales.commerce.repo.CommandeRepository;
 
@@ -31,6 +32,11 @@ public class CommandeService {
 	public void delete(Commande article) {
 		commandeRepo.delete(article);
 
+	}
+	
+	public List<Commande> findByClient_idByOrderByDateDesc(Integer id){
+		
+		return commandeRepo.findByClient_idByOrderByDateDesc(id);
 	}
 
 }

@@ -58,5 +58,12 @@ public class CommandeController {
 		commandeService.save(p);
 
 	}
+	
+	@CrossOrigin(origins = "*")
+	@GetMapping("/findbyclient/{id}")
+	@JsonView(JsonViews.LigneCommandeWithCommande.class)
+	public List<Commande> findByClient_idByOrderByDateDesc(@PathVariable(name = "id") Integer id) {
+		return commandeService.findByClient_idByOrderByDateDesc(id);
+	}
 
 }
