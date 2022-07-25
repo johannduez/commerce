@@ -55,8 +55,9 @@ public class ClientController {
 
 	@CrossOrigin(origins = "*")
 	@PutMapping("")
-	public void update(@RequestBody Client p) {
+	public Client update(@RequestBody Client p) {
 		clientService.save(p);
+		return p;
 
 	}
 	
