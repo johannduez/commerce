@@ -13,36 +13,31 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.annotation.JsonView;
-import com.thales.commerce.model.Client;
-import com.thales.commerce.model.JsonViews;
-import com.thales.commerce.service.ClientService;
+import com.thales.commerce.model.Administration;
+import com.thales.commerce.service.AdministrationService;
 
 @RestController
-@RequestMapping("/client")
-public class ClientController {
+@RequestMapping("/administration")
+public class AdministrationController {
 	@Autowired
-	private ClientService clientService;
+	private AdministrationService adminService;
 
 	@CrossOrigin(origins = "*")
 	@GetMapping("")
-	@JsonView(JsonViews.Common.class)
-	public List<Client> findAll() {
-		return clientService.findAll();
+	public List<Administration> findAll() {
+		return adminService.findAll();
 	}
 
 	@CrossOrigin(origins = "*")
 	@GetMapping("{id}")
-	@JsonView(JsonViews.Common.class)
-	public Client findById(@PathVariable(name = "id") int id) {
-		return clientService.findById(id);
+	public Administration findById(@PathVariable(name = "id") int id) {
+		return adminService.findById(id);
 	}
 
 	@CrossOrigin(origins = "*")
 	@PostMapping("")
-	@JsonView(JsonViews.Common.class)
-	public Client create(@RequestBody Client p) {
-		clientService.save(p);
+	public Administration create(@RequestBody Administration p) {
+		adminService.save(p);
 		return p;
 
 	}
@@ -50,21 +45,20 @@ public class ClientController {
 	@CrossOrigin(origins = "*")
 	@DeleteMapping("{id}")
 	public void delete(@PathVariable(name = "id") int id) {
-		clientService.delete(clientService.findById(id));
+		adminService.delete(adminService.findById(id));
 	}
 
 	@CrossOrigin(origins = "*")
 	@PutMapping("")
-	public void update(@RequestBody Client p) {
-		clientService.save(p);
+	public void update(@RequestBody Administration p) {
+		adminService.save(p);
 
 	}
 	
 	@CrossOrigin(origins = "*")
 	@GetMapping("{id}/{password}")
-	@JsonView(JsonViews.Common.class)
-	public Client findByIdAndPassword(@PathVariable(name = "id") int id, @PathVariable(name = "password") String password){
-		return clientService.findByIdAndPassword(id, password);
+	public Administration findByLoginAndPassword(@PathVariable(name = "id") int id, @PathVariable(name = "password") String password){
+		return adminService.findByLoginAndPassword(id, password);
 	}
 
 }
