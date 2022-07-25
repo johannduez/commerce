@@ -27,7 +27,7 @@ public class ArticleController {
 	private ArticleService articleService;
 
 	@CrossOrigin()
-	@GetMapping("findall")
+	@GetMapping("")
 	@JsonView(JsonViews.Common.class)
 	public List<Article> findAll() {
 		
