@@ -1,31 +1,34 @@
 package com.thales.commerce.model;
 
 import java.util.ArrayList;
+
 import java.util.Collection;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Version;
-import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
 
 @Entity
 public class Client {
 	@Id
+	@JsonView(JsonViews.Common.class)
 	private Integer id;
+	@JsonView(JsonViews.Common.class)
 	private String password;
+	@JsonView(JsonViews.Common.class)
 	private String nom;
+	@JsonView(JsonViews.Common.class)
 	private String prenom;
+	@JsonView(JsonViews.Common.class)
 	private String adresse;
 	@OneToMany(mappedBy = "client")
-	@JsonIgnore
+	@JsonView(JsonViews.CommandeWithClient.class)
 	private Collection<Commande> commandes = new ArrayList<Commande>();
 	@Version
+	@JsonView(JsonViews.Common.class)
 	private int version;
 
 	public Client(Integer id, String password, String nom, String prenom, String adresse) {

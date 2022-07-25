@@ -8,37 +8,43 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Version;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Entity
 public class Commande {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonView(JsonViews.Common.class)
 	private int id;
 	@ManyToOne
+	@JsonView(JsonViews.Common.class)
 	private Client client;
+	@JsonView(JsonViews.Common.class)
 	private Date date;
+	@JsonView(JsonViews.Common.class)
 	private double prixTotal;
 	@OneToMany(mappedBy = "commande")
-	@JsonIgnore
+	@JsonView(JsonViews.LigneCommandeWithCommande.class)
 	private List<LigneCommande> lignes = new ArrayList<LigneCommande>();
 	@Version
+	@JsonView(JsonViews.Common.class)
 	private int version;
+
 	public Commande() {
 		super();
 		long miliseconds = System.currentTimeMillis();
 		date = new Date(miliseconds);
 	}
-	
-	public Commande( Date date, double prixTotal, String infos) {
+
+	public Commande(Date date, double prixTotal, String infos) {
 		this.date = date;
 		this.prixTotal = prixTotal;
-		
+
 	}
 
 	public void addLigneCommande(int idArticle, int quantite, List<Article> articles) {
@@ -61,7 +67,7 @@ public class Commande {
 				}
 			}
 			if (article != null) {
-				lignes.add(new LigneCommande(quantite, quantite * article.getTarif(),this, article));
+				lignes.add(new LigneCommande(quantite, quantite * article.getTarif(), this, article));
 				this.prixTotal += quantite * article.getTarif();
 			}
 		}
@@ -75,7 +81,6 @@ public class Commande {
 	public void setId(int id) {
 		this.id = id;
 	}
-
 
 	public Date getDate() {
 		return date;
@@ -126,9 +131,5 @@ public class Commande {
 		return "Commande [id=" + id + ", client=" + client + ", date=" + date + ", prixTotal=" + prixTotal
 				+ ", version=" + version + "]";
 	}
-
-
-
-
 
 }

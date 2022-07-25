@@ -1,41 +1,41 @@
 package com.thales.commerce.model;
 
 import java.util.ArrayList;
+
 import java.util.Collection;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Transient;
 import javax.persistence.Version;
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonView;
 
-import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Article implements Comparable<Article> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonView(JsonViews.Common.class)
 	private int id;
-
+	@JsonView(JsonViews.Common.class)
 	private String nom;
-
+	@JsonView(JsonViews.Common.class)
 	private String description;
-
+	
+	@JsonView(JsonViews.Common.class)
 	private double tarif;
+	@JsonView(JsonViews.Common.class)
 	private String image;
-
+	@JsonView(JsonViews.Common.class)
 	private String categorie;
 	@OneToMany(mappedBy = "article")
-	@JsonIgnore
+	@JsonView(JsonViews.LigneCommandeWithArticle.class)
 	private Collection<LigneCommande> lignes = new ArrayList<LigneCommande>();
 	@Version
+	@JsonView(JsonViews.Common.class)
 	private int version;
 
 	/*@Transient

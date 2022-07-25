@@ -2,6 +2,7 @@ package com.thales.commerce.controller;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,8 +14,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.thales.commerce.model.Article;
+import com.thales.commerce.model.JsonViews;
 import com.thales.commerce.service.ArticleService;
+
 
 @RestController
 @RequestMapping("/article")
@@ -24,6 +28,7 @@ public class ArticleController {
 
 	@CrossOrigin()
 	@GetMapping("findall")
+	@JsonView(JsonViews.Common.class)
 	public List<Article> findAll() {
 		
 		
@@ -79,6 +84,7 @@ public class ArticleController {
 
 	@CrossOrigin(origins = "*")
 	@GetMapping("{id}")
+	@JsonView(JsonViews.Common.class)
 	public Article findById(@PathVariable(name = "id") int id) {
 		return articleService.findById(id);
 	}
@@ -105,11 +111,13 @@ public class ArticleController {
 	
 	@CrossOrigin()
 	@GetMapping("findbyorderbytarifasc")
+	@JsonView(JsonViews.Common.class)
 	public List<Article> findByOrderByTarifAsc(){
 		return articleService.findByOrderByTarifAsc();
 	}
 	@CrossOrigin(origins = "*")
 	@GetMapping("findfiltretotal/{tel}/{ordi}/{elec}/{prixMax}/{prixMin}/{leNom}")
+	@JsonView(JsonViews.Common.class)
 	public List<Article> findFiltreTotal(@PathVariable(name = "tel")String tel,
 			@PathVariable(name = "ordi") String ordi,
 			@PathVariable(name = "elec")String elec, 
@@ -121,6 +129,7 @@ public class ArticleController {
 	}
 	@CrossOrigin(origins = "*")
 	@GetMapping("findfiltretotal/{tel}/{ordi}/{elec}/{prixMax}/{prixMin}")
+	@JsonView(JsonViews.Common.class)
 	public List<Article> findFiltreTotal(@PathVariable(name = "tel")String tel,
 			@PathVariable(name = "ordi") String ordi,
 			@PathVariable(name = "elec")String elec, 

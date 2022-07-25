@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.thales.commerce.model.JsonViews;
 import com.thales.commerce.model.LigneCommande;
 import com.thales.commerce.service.LigneCommandeService;
 
@@ -24,12 +26,14 @@ public class LigneCommandeController {
 
 	@CrossOrigin()
 	@GetMapping("")
+	@JsonView(JsonViews.CommandeArticleWithLigneCommande.class)
 	public List<LigneCommande> findAll() {
 		return ligneService.findAll();
 	}
 
 	@CrossOrigin(origins = "*")
 	@GetMapping("{id}")
+	@JsonView(JsonViews.CommandeArticleWithLigneCommande.class)
 	public LigneCommande findById(@PathVariable(name = "id") int id) {
 		return ligneService.findById(id);
 	}

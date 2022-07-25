@@ -9,18 +9,26 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Version;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Entity
 public class LigneCommande {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonView(JsonViews.Common.class)
 	private int id;
+	@JsonView(JsonViews.Common.class)
 	private int quantite;
+	@JsonView(JsonViews.Common.class)
 	private double prix;
 	@ManyToOne
+	@JsonView(JsonViews.CommandeArticleWithLigneCommande.class)
 	private Commande commande;
 	@ManyToOne
+	@JsonView(JsonViews.CommandeArticleWithLigneCommande.class)
 	private Article article;
 	@Version
+	@JsonView(JsonViews.Common.class)
 	private int version;
 
 	public LigneCommande(int quantite, double prix, Article article) {

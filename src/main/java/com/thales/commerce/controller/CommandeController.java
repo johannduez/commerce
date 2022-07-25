@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.thales.commerce.model.Commande;
+import com.thales.commerce.model.JsonViews;
 import com.thales.commerce.service.CommandeService;
 
 @RestController
@@ -24,12 +26,14 @@ public class CommandeController {
 
 	@CrossOrigin()
 	@GetMapping("")
+	@JsonView(JsonViews.LigneCommandeWithCommande.class)
 	public List<Commande> findAll() {
 		return commandeService.findAll();
 	}
 
 	@CrossOrigin(origins = "*")
 	@GetMapping("{id}")
+	@JsonView(JsonViews.LigneCommandeWithCommande.class)
 	public Commande findById(@PathVariable(name = "id") int id) {
 		return commandeService.findById(id);
 	}
@@ -38,7 +42,6 @@ public class CommandeController {
 	@PostMapping("")
 	public Commande create(@RequestBody Commande p) {
 		commandeService.save(p);
-		System.out.println(p);
 		return p;
 
 	}
