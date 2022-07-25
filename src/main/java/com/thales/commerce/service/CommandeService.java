@@ -34,9 +34,10 @@ public class CommandeService {
 
 	}
 	
-	public List<Commande> findByClient_idByOrderByDateDesc(Integer id){
+	public List<Commande> findByClient(int id){
 		
-		return commandeRepo.findByClient_idByOrderByDateDesc(id);
+		//return commandeRepo.findByClient_idByOrderByDateDesc(id);
+		return commandeRepo.findByClient(id);
 	}
 
 }
