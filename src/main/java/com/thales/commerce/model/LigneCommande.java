@@ -22,10 +22,10 @@ public class LigneCommande {
 	@JsonView(JsonViews.Common.class)
 	private double prix;
 	@ManyToOne
-	@JsonView(JsonViews.CommandeArticleWithLigneCommande.class)
+	@JsonView(JsonViews.CommandeWithLigneCommande.class)
 	private Commande commande;
 	@ManyToOne
-	@JsonView(JsonViews.CommandeArticleWithLigneCommande.class)
+	@JsonView(JsonViews.ArticleWithLigneCommande.class)
 	private Article article;
 	@Version
 	@JsonView(JsonViews.Common.class)

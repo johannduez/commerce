@@ -26,14 +26,14 @@ public class LigneCommandeController {
 
 	@CrossOrigin()
 	@GetMapping("")
-	@JsonView(JsonViews.CommandeArticleWithLigneCommande.class)
+	@JsonView(JsonViews.ArticleWithLigneCommande.class)
 	public List<LigneCommande> findAll() {
 		return ligneService.findAll();
 	}
 
 	@CrossOrigin(origins = "*")
 	@GetMapping("{id}")
-	@JsonView(JsonViews.CommandeArticleWithLigneCommande.class)
+	@JsonView(JsonViews.ArticleWithLigneCommande.class)
 	public LigneCommande findById(@PathVariable(name = "id") int id) {
 		return ligneService.findById(id);
 	}

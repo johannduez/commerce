@@ -12,10 +12,14 @@ public class JsonViews {
 	public static class CommandeWithClient extends Common{
 		
 	}
-	public static class LigneCommandeWithCommande extends Common{
+	public static class LigneCommandeWithCommande extends ArticleWithLigneCommande{
 		
 	}
-	public static class CommandeArticleWithLigneCommande extends Common{
+	
+	public static class ArticleWithLigneCommande extends Common{
+		
+	}
+	public static class CommandeWithLigneCommande extends Common{
 		
 	}
 	
