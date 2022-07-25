@@ -56,5 +56,11 @@ public class ClientController {
 		clientService.save(p);
 
 	}
+	
+	@CrossOrigin(origins = "*")
+	@GetMapping("{id}/{password}")
+	public Client findByIdAndPassword(@PathVariable(name = "id") int id, @PathVariable(name = "password") String password){
+		return clientService.findByIdAndPassword(id, password);
+	}
 
 }
