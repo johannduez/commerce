@@ -39,15 +39,28 @@ public class ArticleService {
 
 	public void save(MultipartFile file, String id, String categorie, String description, String nom, String tarif,
 			String version) {
-		Article p = new Article(nom, description, Double.parseDouble(tarif), file.getOriginalFilename(), categorie);
+		
+		Article p =null;
+		
+		if(file!=null && !file.isEmpty()){
+			p = new Article(nom, description, Double.parseDouble(tarif), file.getOriginalFilename(), categorie);
+			try {
+				p.setPicByte(compressBytes(file.getBytes()));
+			} catch (IOException e) {
+	
+				e.printStackTrace();
+			}
+		}
+		else{
+			p=articleRepo.findById(Integer.parseInt(id)).get();
+			p.setNom(nom);
+			p.setDescription(description);
+			p.setCategorie(categorie);
+			p.setTarif( Double.parseDouble(tarif));
+		
+		}
 		p.setId(Integer.parseInt(id));
 		p.setVersion(Integer.parseInt(version));
-		try {
-			p.setPicByte(compressBytes(file.getBytes()));
-		} catch (IOException e) {
-
-			e.printStackTrace();
-		}
 		this.save(p);
 
 	}

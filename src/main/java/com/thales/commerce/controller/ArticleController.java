@@ -113,15 +113,14 @@ public class ArticleController {
 		articleService.save(p);
 
 	}
-    uploadImageData.append('imageFile', this.selectedFile, this.selectedFile.name);
-    uploadImageData.append('id',this.article.id.toString());
-	
 	*/
 	@CrossOrigin(origins = "*")
 	@PutMapping("")
-	public void update(@RequestParam("imageFile") MultipartFile file,@RequestParam("id") String id,
+	public void update(@RequestParam(value = "imageFile", required = false) MultipartFile file,@RequestParam("id") String id,
 			@RequestParam("categorie") String categorie,@RequestParam("description") String description,
-			@RequestParam("nom") String nom,@RequestParam("tarif") String tarif,@RequestParam("version") String version) {
+			@RequestParam("nom") String nom,@RequestParam("tarif") String tarif,
+			@RequestParam("version") String version) {
+		
 		articleService.save(file,id,categorie,description,nom,tarif,version);
 		
 		
