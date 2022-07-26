@@ -4,12 +4,17 @@ import java.util.ArrayList;
 
 import java.util.Collection;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 import javax.persistence.Version;
+
+import org.springframework.web.multipart.MultipartFile;
+
 import com.fasterxml.jackson.annotation.JsonView;
 
 
@@ -37,7 +42,12 @@ public class Article implements Comparable<Article> {
 	@Version
 	@JsonView(JsonViews.Common.class)
 	private int version;
-
+	  //image bytes can have large lengths so we specify a value
+    //which is more than the default length for picByte column
+	@Column(name = "picByte", length = 65555)
+	@JsonView(JsonViews.Common.class)
+	private byte[] picByte;
+	
 	/*@Transient
 	private MultipartFile multiPartFile;*/
 
@@ -118,12 +128,21 @@ public class Article implements Comparable<Article> {
 		this.lignes = lignes;
 	}
 
+
 	public int getVersion() {
 		return version;
 	}
 
 	public void setVersion(int version) {
 		this.version = version;
+	}
+	
+	public byte[] getPicByte() {
+		return picByte;
+	}
+
+	public void setPicByte(byte[] picByte) {
+		this.picByte = picByte;
 	}
 
 	@Override

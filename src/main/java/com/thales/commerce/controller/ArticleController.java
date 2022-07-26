@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.thales.commerce.model.Article;
@@ -91,9 +93,12 @@ public class ArticleController {
 
 	@CrossOrigin(origins = "*")
 	@PostMapping("")
-	public void create(@RequestBody Article p) {
-		articleService.save(p);
-
+	public void create(@RequestParam("imageFile") MultipartFile file,@RequestParam("id") String id,
+			@RequestParam("categorie") String categorie,@RequestParam("description") String description,
+			@RequestParam("nom") String nom,@RequestParam("tarif") String tarif,@RequestParam("version") String version) {
+		articleService.save(file,id,categorie,description,nom,tarif,version);
+		
+		
 	}
 
 	@CrossOrigin(origins = "*")
@@ -102,13 +107,26 @@ public class ArticleController {
 		articleService.delete(articleService.findById(id));
 	}
 
-	@CrossOrigin(origins = "*")
+	/*@CrossOrigin(origins = "*")
 	@PutMapping("")
 	public void update(@RequestBody Article p) {
 		articleService.save(p);
 
 	}
+    uploadImageData.append('imageFile', this.selectedFile, this.selectedFile.name);
+    uploadImageData.append('id',this.article.id.toString());
 	
+	*/
+	@CrossOrigin(origins = "*")
+	@PutMapping("")
+	public void update(@RequestParam("imageFile") MultipartFile file,@RequestParam("id") String id,
+			@RequestParam("categorie") String categorie,@RequestParam("description") String description,
+			@RequestParam("nom") String nom,@RequestParam("tarif") String tarif,@RequestParam("version") String version) {
+		articleService.save(file,id,categorie,description,nom,tarif,version);
+		
+		
+	}
+      
 	@CrossOrigin()
 	@GetMapping("findbyorderbytarifasc")
 	@JsonView(JsonViews.Common.class)
@@ -138,4 +156,6 @@ public class ArticleController {
 			) {
 		return articleService.findFiltreTotal(tel, ordi, elec, prixMax, prixMin, "");
 	}
+	
+	
 }
